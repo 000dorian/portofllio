@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>NOVOSTEAK | Nowoczesna restauracja steak & fusion</title>
+  <!-- Google Fonts + Font Awesome + Swiper JS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #eaeaea;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1a1a1a; }
+    ::-webkit-scrollbar-thumb { background: #c7a25e; border-radius: 10px; }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    h2 {
+      font-size: 3rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #c7a25e;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .btn {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid #c7a25e;
+      color: #c7a25e;
+      padding: 12px 32px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #c7a25e;
+      color: #0a0a0a;
+      border-color: #c7a25e;
+    }
+    .btn-primary {
+      background: #c7a25e;
+      color: #0a0a0a;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #b38d4a;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(199, 162, 94, 0.3);
+      transition: 0.3s;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .logo span { color: #c7a25e; }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #c7a25e; }
+    .mobile-menu {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #c7a25e;
+    }
+
+    /* HERO - pełny widok, bez ucinania */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px;
+    }
+    .hero-content {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+    .hero-content h1 {
+      font-size: 5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      margin: 1.5rem auto;
+      max-width: 600px;
+      color: #e0e0e0;
+    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
+
+    /* karty info */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .info-card {
+      background: rgba(17, 17, 17, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 2rem;
+      border-radius: 28px;
+      border: 1px solid rgba(199,162,94,0.3);
+      transition: 0.2s;
+    }
+    .info-card i { font-size: 2rem; color: #c7a25e; margin-bottom: 1rem; }
+    .info-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    
+    /* MENU */
+    .menu-category { margin-bottom: 3rem; }
+    .menu-category h3 {
+      font-size: 1.8rem;
+      border-left: 4px solid #c7a25e;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .menu-items { display: flex; flex-direction: column; gap: 1rem; }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed #2a2a2a;
+      padding: 0.8rem 0;
+    }
+    .menu-item-info h4 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .menu-item-info p { font-size: 0.85rem; color: #aaa; }
+    .menu-price { font-weight: 600; color: #c7a25e; font-size: 1.2rem; }
+
+    /* galeria */
+    .swiper { width: 100%; padding: 20px 0; }
+    .swiper-slide img { width: 100%; height: 320px; object-fit: cover; border-radius: 20px; }
+
+    /* formularz */
+    .reserve-form {
+      background: #111;
+      padding: 2.5rem;
+      border-radius: 32px;
+      max-width: 700px;
+      margin-top: 2rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      color: white;
+      border-radius: 16px;
+      font-family: inherit;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .testimonial-card {
+      background: #111;
+      padding: 2rem;
+      border-radius: 24px;
+      border: 1px solid #222;
+    }
+    .stars { color: #c7a25e; margin-bottom: 1rem; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .news-card {
+      background: #111;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .news-card img { width: 100%; height: 200px; object-fit: cover; }
+    .news-card-content { padding: 1.5rem; }
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .social-icons a { color: #ccc; font-size: 2rem; transition: 0.2s; }
+    .social-icons a:hover { color: #c7a25e; transform: scale(1.05); }
+    footer {
+      background: #050505;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid #1f1f1f;
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-menu { display: block; }
+      .hero-content h1 { font-size: 3rem; }
+      section { padding: 70px 0; }
+      h2 { font-size: 2.2rem; }
+    }
+    .mobile-nav-active {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background: #0a0a0a;
+      flex-direction: column;
+      padding: 2rem;
+      gap: 1.5rem;
+      display: flex !important;
+      z-index: 99;
+      border-bottom: 1px solid #c7a25e;
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">NOVO<span>STEAK</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Strona główna</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">O nas</a></li>
+        <li><a href="#reservations">Rezerwacje</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+        <li><a href="#gallery">Galeria</a></li>
+        <li><a href="#order">Zamów online</a></li>
+        <li><a href="#reviews">Opinie</a></li>
+        <li><a href="#news">Aktualności</a></li>
+      </ul>
+      <div class="mobile-menu" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <!-- HOME sekcja (pełny widok) -->
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <h1>Nowa definicja<br>smaku mięsa</h1>
+      <p>Steaki dry-aged, nowoczesne kompozycje i wyjątkowa atmosfera w sercu miasta.</p>
+      <div class="hero-buttons">
+        <a href="#reservations" class="btn btn-primary">Rezerwuj stolik</a>
+        <a href="#order" class="btn">Zamów online</a>
+      </div>
+      <div class="info-grid">
+        <div class="info-card"><i class="fas fa-clock"></i><h3>Godziny otwarcia</h3><p>Pn-Cz: 12:00–22:00<br>Pt-Nd: 12:00–23:00</p></div>
+        <div class="info-card"><i class="fas fa-map-marker-alt"></i><h3>Lokalizacja</h3><p>ul. Steakowa 7, 00-456 Warszawa</p></div>
+        <div class="info-card"><i class="fas fa-utensils"></i><h3>Oferta</h3><p>Steaki, burgery, desery, koktajle</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU z akcentem na steaki -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-subtitle">ODKRYJ</div>
+      <h2>Nasze menu</h2>
+      <div class="menu-category">
+        <h3>Przystawki</h3>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-info"><h4>Tatar z polędwicy wołowej</h4><p>pieczone żółtko, pikle, chipsy z batatów</p></div><div class="menu-price">62 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Krewetki tempura</h4><p>sos chili-limonka, sezam, kolendra</p></div><div class="menu-price">48 zł</div></div>
+        </div>
+      </div>
+      <div class="menu-category">
+        <h3>Steaki & Dania główne</h3>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-info"><h4>Steak Black Angus 300g</h4><p>dry-aged, masło ziołowe, frytki truflowe</p></div><div class="menu-price">139 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Polędwica wołowa 250g</h4><p>purée z selera, grzyby leśne, sos pieczeniowy</p></div><div class="menu-price">119 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Burger NOVOSTEAK</h4><p>wołowina, ser cheddar, bekon, sos BBQ, bułka brioche</p></div><div class="menu-price">59 zł</div></div>
+        </div>
+      </div>
+      <div class="menu-category">
+        <h3>Desery</h3>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-info"><h4>Crème brûlée z wanilią</h4><p>karmelizowana skórka, maliny</p></div><div class="menu-price">32 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Fondant czekoladowy</h4><p>lody waniliowe, coulis z owoców leśnych</p></div><div class="menu-price">38 zł</div></div>
+        </div>
+      </div>
+      <div class="menu-category">
+        <h3>Napoje & koktajle</h3>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-info"><h4>Espresso / Latte</h4><p>włoskie palone ziarna</p></div><div class="menu-price">12/16 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Old Fashioned</h4><p>bourbon, bitters, kostka lodu</p></div><div class="menu-price">38 zł</div></div>
+          <div class="menu-item"><div class="menu-item-info"><h4>Whisky Sour</h4><p>bourbon, cytryna, bitters</p></div><div class="menu-price">34 zł</div></div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;"><i class="fas fa-camera"></i> *wybrane dania dostępne w galerii</div>
+    </div>
+  </section>
+
+  <!-- O NAS -->
+  <section id="about" style="background:#0f0f0f;">
+    <div class="container">
+      <div class="section-subtitle">Poznaj naszą historię</div>
+      <h2>O nas</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem;">
+        <div><p style="font-size:1.1rem; margin-bottom:1rem;">NOVOSTEAK powstał z miłości do perfekcyjnie przyrządzonego mięsa i nowoczesnej kuchni. Od 2019 roku serwujemy najlepsze steki z polskich i argentyńskich hodowli, dojrzewające w naszej własnej komorze dry-aging.</p>
+        <p>Filozofia: lokalne dostawy, zero waste i pasja do rzemiosła. Naszym szefem kuchni jest Kamil Wójcicki – mistrz grilla i entuzjasta nowatorskich połączeń. Wierzymy, że dobry steak to emocje, które zapadają w pamięć.</p>
+        <p style="margin-top:1rem;"><strong>Wartości:</strong> 🥩 mięso najwyższej jakości, 🌿 świeże składniki, 🔥 otwartość na gości.</p></div>
+        <div><img src="https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=800" style="width:100%; border-radius:32px; height:300px; object-fit:cover;" alt="szef kuchni i steki"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REZERWACJE -->
+  <section id="reservations">
+    <div class="container">
+      <div class="section-subtitle">Zarezerwuj stolik</div>
+      <h2>Rezerwacje</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+        <div class="reserve-form">
+          <h3 style="margin-bottom:1rem;">Formularz online</h3>
+          <form id="bookingForm">
+            <div class="form-group"><input type="text" placeholder="Imię i nazwisko" required></div>
+            <div class="form-group"><input type="email" placeholder="Email" required></div>
+            <div class="form-group"><input type="tel" placeholder="Telefon"></div>
+            <div class="form-group"><input type="date" id="datePicker" required></div>
+            <div class="form-group"><input type="time" id="timePicker" required></div>
+            <div class="form-group"><select><option>2 osoby</option><option>3 osoby</option><option>4 osoby</option><option>5+ osób</option></select></div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Zarezerwuj</button>
+            <p id="formFeedback" style="margin-top:1rem; font-size:0.8rem;"></p>
+          </form>
+        </div>
+        <div style="flex:1; background:#111; border-radius:32px; padding:2rem;">
+          <i class="fas fa-phone-alt" style="font-size:2rem; color:#c7a25e;"></i>
+          <h3>Rezerwacja telefoniczna</h3>
+          <p style="font-size:1.4rem; margin:1rem 0;">+48 789 123 456</p>
+          <p>Godziny przyjęć: 10:00 - 22:00</p>
+          <hr style="margin:1.5rem 0; border-color:#2a2a2a;">
+          <p><i class="fas fa-envelope"></i> rezerwacje@novosteak.pl</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT + mapa -->
+  <section id="contact" style="background:#0f0f0f;">
+    <div class="container">
+      <div class="section-subtitle">Odwiedź nas</div>
+      <h2>Kontakt</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div><p><i class="fas fa-map-pin"></i> <strong>Adres:</strong> ul. Steakowa 7, 00-456 Warszawa</p><p><i class="fas fa-clock"></i> <strong>Godziny otwarcia:</strong> pon.-czw. 12-22, pt.-niedz. 12-23</p><p><i class="fas fa-phone"></i> +48 789 123 456</p><p><i class="fas fa-envelope"></i> kontakt@novosteak.pl</p></div>
+        <div><iframe src="https://maps.google.com/maps?q=Warszawa+Steakowa+7&output=embed" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen></iframe></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-subtitle">Wizualna uczta</div>
+      <h2>Galeria</h2>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600" alt="stek"></div>
+          <div class="swiper-slide"><img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" alt="wnętrze"></div>
+          <div class="swiper-slide"><img src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=600" alt="deser"></div>
+          <div class="swiper-slide"><img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600" alt="ogródek"></div>
+          <div class="swiper-slide"><img src="https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=600" alt="bar"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZAMÓWIENIA ONLINE -->
+  <section id="order" style="background:#0f0f0f;">
+    <div class="container">
+      <div class="section-subtitle">Dostawa i takeaway</div>
+      <h2>Zamów online</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
+        <div style="flex:2"><p>Zamów swoje ulubione steki i burgery z dostawą do domu. Współpracujemy z Uber Eats, Pyszne.pl oraz własnym kurierem.</p>
+        <div style="display: flex; gap:1rem; margin-top:1rem;"><button class="btn" id="demoOrderBtn">📦 Przykładowy koszyk (demo)</button><button class="btn btn-primary" id="checkoutBtn">Przejdź do płatności demo</button></div>
+        <p id="cartMessage" style="margin-top:1rem;"></p></div>
+        <div style="flex:1; background:#111; border-radius:28px; padding:1.5rem;"><i class="fab fa-uber"></i> <strong>Platformy:</strong> Uber Eats, Glovo, Pyszne.pl <br><i class="fas fa-credit-card"></i> Płatność online / za pobraniem</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPINIE -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-subtitle">Opinie gości</div>
+      <h2>Co mówią o nas?</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Najlepszy stek w Warszawie! Idealnie wysmażony, a sosy mistrzostwo. Wracam co tydzień."</p><h4>— Michał K.</h4></div>
+        <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Nowoczesne wnętrze, świetna obsługa, a burger NOVOSTEAK rozpływa się w ustach."</p><h4>— Joanna R.</h4></div>
+        <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Polecam każdemu miłośnikowi mięsa. Rewelacyjne dry-aged i klimat."</p><h4>— Piotr Z.</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AKTUALNOŚCI -->
+  <section id="news" style="background:#0f0f0f;">
+    <div class="container">
+      <div class="section-subtitle">Bądź na bieżąco</div>
+      <h2>Aktualności i wydarzenia</h2>
+      <div class="news-grid">
+        <div class="news-card"><img src="https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg?auto=compress&cs=tinysrgb&w=600" alt="event"><div class="news-card-content"><h3>Steak Night</h3><p>Każdy czwartek - stek z frytkami w cenie 89 zł. Zapraszamy!</p></div></div>
+        <div class="news-card"><img src="https://images.pexels.com/photos/1267325/pexels-photo-1267325.jpeg?auto=compress&cs=tinysrgb&w=600" alt="promo"><div class="news-card-content"><h3>Nowe menu wiosenne</h3><p>Od 1 maja nowe kompozycje steakowe z dodatkiem dzikich ziół.</p></div></div>
+        <div class="news-card"><img src="https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=600" alt="koncert"><div class="news-card-content"><h3>Muzyka na żywo</h3><p>Każda sobota od 20:00, akustyczne koncerty w ogródku.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL MEDIA -->
+  <section id="social">
+    <div class="container" style="text-align: center;">
+      <div class="section-subtitle">Łączymy się</div>
+      <h2>Social media</h2>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <p style="margin-top: 1rem;">Obserwuj nas @novosteak</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 NOVOSTEAK – nowoczesna restauracja steak & fusion. Wszystkie prawa zastrzeżone.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-nav-active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('mobile-nav-active');
+      });
+    });
+
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+    });
+
+    const bookingForm = document.getElementById('bookingForm');
+    const feedback = document.getElementById('formFeedback');
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedback.innerHTML = '✅ Dziękujemy! Twoja rezerwacja została przyjęta (demo). Skontaktujemy się mailowo.';
+      feedback.style.color = '#c7a25e';
+      bookingForm.reset();
+    });
+
+    const orderBtn = document.getElementById('demoOrderBtn');
+    const cartMsg = document.getElementById('cartMessage');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    let cart = [];
+    orderBtn.addEventListener('click', () => {
+      cart.push('Steak Black Angus', 'Fondant czekoladowy');
+      cartMsg.innerHTML = `🛒 Twój koszyk: ${cart.join(', ')}. Możesz przejść do płatności.`;
+    });
+    checkoutBtn.addEventListener('click', () => {
+      if(cart.length === 0) cartMsg.innerHTML = '❌ Dodaj najpierw dania do koszyka (kliknij przycisk koszyka demo).';
+      else cartMsg.innerHTML = '💳 Demo płatności: Twoje zamówienie zostało złożone! (symulacja)';
+    });
+  </script>
+</body>
+</html>
